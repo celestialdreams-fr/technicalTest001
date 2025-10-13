@@ -1,0 +1,6 @@
+fr/celestialdreams/api/model/User.class
+fr/celestialdreams/api/repository/UserRepository.class
+fr/celestialdreams/api/service/UserService.class
+fr/celestialdreams/api/ApiCdApplication.class
+fr/celestialdreams/api/controller/UserController.class
+fr/celestialdreams/api/controller/ValidationHandler.class
