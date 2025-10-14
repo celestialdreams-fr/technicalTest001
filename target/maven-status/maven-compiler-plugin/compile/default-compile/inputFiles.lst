@@ -1,6 +1,0 @@
-/home/arnaud/Documents/workspace-spring-tools-for-eclipse-4.32.0.RELEASE/apiCD/src/main/java/fr/celestialdreams/api/ApiCdApplication.java
-/home/arnaud/Documents/workspace-spring-tools-for-eclipse-4.32.0.RELEASE/apiCD/src/main/java/fr/celestialdreams/api/controller/UserController.java
-/home/arnaud/Documents/workspace-spring-tools-for-eclipse-4.32.0.RELEASE/apiCD/src/main/java/fr/celestialdreams/api/controller/ValidationHandler.java
-/home/arnaud/Documents/workspace-spring-tools-for-eclipse-4.32.0.RELEASE/apiCD/src/main/java/fr/celestialdreams/api/model/User.java
-/home/arnaud/Documents/workspace-spring-tools-for-eclipse-4.32.0.RELEASE/apiCD/src/main/java/fr/celestialdreams/api/repository/UserRepository.java
-/home/arnaud/Documents/workspace-spring-tools-for-eclipse-4.32.0.RELEASE/apiCD/src/main/java/fr/celestialdreams/api/service/UserService.java

@@ -10,8 +10,8 @@ Endpoints :
 Request formats :
     Content-Type: application/json
     Name: 2–40 alphabetic characters
-    Date: use ISO format yyyy-MM-dd for LocalDate
-    CountryCode: 2 alphabetic characters
+    Date: use ISO format yyyy-MM-dd for LocalDate (must be an adult birth date)
+    CountryCode: 2 alphabetic characters (must be a french country code)
     Gender: F or M
     
 Example payload for create / update:
@@ -27,4 +27,5 @@ HTTP status codes and behaviors :
     200 OK: GET /user/{id} found; PUT returns the updated object.
     204 No Content: successful DELETE (no body returned).
     404 Not Found: GET/PUT/DELETE for a non-existent id.
-    400 Bad Request: invalid payload (validation failure from @Valid or JSON parsing error).
+    400 Bad Request: invalid payload (JSON parsing error).
+    422 Unprocessable Entity: invalid payload (validation failure from @Valid).
