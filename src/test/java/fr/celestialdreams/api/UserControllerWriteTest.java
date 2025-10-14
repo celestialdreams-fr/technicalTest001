@@ -8,6 +8,7 @@ import fr.celestialdreams.api.service.UserService;
 import org.hamcrest.core.IsNull;
 import org.hamcrest.text.IsEmptyString;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.MockedStatic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.time.Clock;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -186,12 +189,18 @@ public class UserControllerWriteTest {
 	public void testCreateUserErrKeyDateChild() throws Exception {
 		 LocalDate fixedNow = LocalDate.of(1950, 1, 1);
 		    try (MockedStatic<LocalDate> mocked = mockStatic(LocalDate.class, CALLS_REAL_METHODS)) {
-				        mocked.when(() -> LocalDate.now()).thenReturn(fixedNow);
+		    	mocked.when(LocalDate::now).thenReturn(fixedNow);
+		        mocked.when(() -> LocalDate.now(ArgumentMatchers.<ZoneId>any())).thenAnswer(invocation -> {
+		            return fixedNow;
+		        });
+		        mocked.when(() -> LocalDate.now(ArgumentMatchers.<Clock>any())).thenAnswer(invocation -> {
+		            return fixedNow;
+		        });
 			    when(userService.saveUser(any(User.class))).thenReturn(new User());
 			    String userJson = """
 			            {
 			                "name": "Arnaud",
-			                "birthDate": "2020-01-01",
+			                "birthDate": "1948-01-01",
 			                "countryCode": "FR"
 			            }
 			            """;
