@@ -59,7 +59,7 @@ POST /user — Create a user.\
 GET /user/{id} — Retrieve a user by its id.\
 GET /users — Retrieve all users.\
 PUT /user/{id} — Update an existing user (partial update of non-null fields).\
-DELETE /user/{id} — Delete a user by its id.\
+DELETE /user/{id} — Delete a user by its id.
 
 ## Format
 Content-Type: application/json\
