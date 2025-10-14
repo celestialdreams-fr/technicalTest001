@@ -1,4 +1,4 @@
-This README describes the REST controller UserController, its endpoints, expected formats, HTTP behavior.
+This README describes the REST controller UserController, its endpoints, expected formats, HTTP behavior, how to test it and run it.
 
 Endpoints :
     POST /user — Create a user.
@@ -29,3 +29,11 @@ HTTP status codes and behaviors :
     404 Not Found: GET/PUT/DELETE for a non-existent id.
     400 Bad Request: invalid payload (JSON parsing error).
     422 Unprocessable Entity: invalid payload (validation failure from @Valid).
+
+Postman : TechnicalTest.postman_collection.json
+
+Install + Run :
+./mvnw clean package
+./mvnw spring-boot:run
+
+Configured port : 8888
