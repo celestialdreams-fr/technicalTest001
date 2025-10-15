@@ -4,7 +4,7 @@
 		"name": "TechnicalTest",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "49257593",
-		"_collection_link": ""
+		"_collection_link": "https://arnaud-daver-9954662.postman.co/workspace/A-Daver's-Workspace~97dcfac6-1e90-4597-865c-3982d4bde337/collection/49257593-c142335a-f053-4003-8cb7-cab428b9afbe?action=share&source=collection_link&creator=49257593"
 	},
 	"item": [
 		{
@@ -35,15 +35,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8888/user/1",
-					"protocol": "http",
+					"raw": "{{baseURL}}/user/1",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseURL}}"
 					],
-					"port": "8888",
 					"path": [
 						"user",
 						"1"
@@ -123,15 +118,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8888/user/999",
-					"protocol": "http",
+					"raw": "{{baseURL}}/user/999",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseURL}}"
 					],
-					"port": "8888",
 					"path": [
 						"user",
 						"999"
@@ -188,25 +178,99 @@
 		},
 		{
 			"name": "AllUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Users\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    const json = pm.response.json();",
+							"    pm.expect(json[0].id).to.eql(1);",
+							"    pm.expect(json[0].name).to.eql(\"Arnaud\");",
+							"    pm.expect(json[0].birthDate).to.eql(\"1975-01-01\");",
+							"    pm.expect(json[0].countryCode).to.eql(\"FR\");",
+							"    pm.expect(json[0].phoneNumber).to.eql(\"+337777777\");",
+							"    pm.expect(json[0].gender).to.eql(\"M\");",
+							"    pm.expect(json[1].id).to.eql(2);",
+							"    pm.expect(json[1].name).to.eql(\"Maria\");",
+							"    pm.expect(json[1].birthDate).to.eql(\"2016-10-10\");",
+							"    pm.expect(json[1].countryCode).to.eql(\"DE\");",
+							"    pm.expect(json[1].phoneNumber).to.eql(\"+336666666\");",
+							"    pm.expect(json[1].gender).to.eql(\"F\");",
+							"    pm.expect(json[2].id).to.eql(3);",
+							"    pm.expect(json[2].name).to.eql(\"Victoria\");",
+							"    pm.expect(json[2].birthDate).to.eql(\"2010-02-11\");",
+							"    pm.expect(json[2].countryCode).to.eql(\"US\");",
+							"    pm.expect(json[2].phoneNumber).to.eql(\"+3311111111\");",
+							"    pm.expect(json[2].gender).to.eql(\"F\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8888/users",
-					"protocol": "http",
+					"raw": "{{baseURL}}/users",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseURL}}"
 					],
-					"port": "8888",
 					"path": [
 						"users"
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "AllUsers",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Oct 2025 09:30:32 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Arnaud\",\n        \"birthDate\": \"1975-01-01\",\n        \"countryCode\": \"FR\",\n        \"phoneNumber\": \"+337777777\",\n        \"gender\": \"M\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Maria\",\n        \"birthDate\": \"2016-10-10\",\n        \"countryCode\": \"DE\",\n        \"phoneNumber\": \"+336666666\",\n        \"gender\": \"F\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Victoria\",\n        \"birthDate\": \"2010-02-11\",\n        \"countryCode\": \"US\",\n        \"phoneNumber\": \"+3311111111\",\n        \"gender\": \"F\"\n    }\n]"
+				}
+			]
 		},
 		{
 			"name": "NullPost",
@@ -216,9 +280,11 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-							"});",
-							""
+							"    pm.expect(pm.response.code).to.be.oneOf([422]);",
+							"    pm.expect(pm.response.json().countryCode).to.match(/nul|invalid/);",
+							"    pm.expect(pm.response.json().name).to.contains(\"nul\");",
+							"    pm.expect(pm.response.json().birthDate).to.equal(\"age must be between 18 and 120 years\");",
+							"})"
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -239,27 +305,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/user?name=ABCD&birthDate=2000-01-01",
-					"protocol": "http",
+					"raw": "{{baseURL}}/user",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseURL}}"
 					],
-					"port": "8888",
 					"path": [
 						"user"
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "ABCD"
-						},
-						{
-							"key": "birthDate",
-							"value": "2000-01-01"
-						}
 					]
 				}
 			},
@@ -273,9 +324,9 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-							"});",
-							""
+							"    pm.expect(pm.response.code).to.be.oneOf([422]);",
+							"    pm.expect(pm.response.json().birthDate).to.equal(\"age must be between 18 and 120 years\");",
+							"})"
 						],
 						"type": "text/javascript",
 						"packages": {},
@@ -296,15 +347,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/user",
-					"protocol": "http",
+					"raw": "{{baseURL}}/user",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseURL}}"
 					],
-					"port": "8888",
 					"path": [
 						"user"
 					]
@@ -343,15 +389,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/user",
-					"protocol": "http",
+					"raw": "{{baseURL}}/user",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseURL}}"
 					],
-					"port": "8888",
 					"path": [
 						"user"
 					]
@@ -390,15 +431,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/user",
-					"protocol": "http",
+					"raw": "{{baseURL}}/user",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseURL}}"
 					],
-					"port": "8888",
 					"path": [
 						"user"
 					]
@@ -422,13 +458,6 @@
 						"packages": {},
 						"requests": {}
 					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"packages": {},
-						"type": "text/javascript"
-					}
 				}
 			],
 			"request": {
@@ -436,7 +465,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 1,\n    \"name\": \"Arnaud\",\n    \"birthDate\": \"1924-01-01\",\n    \"countryCode\": \"FR\",\n    \"phoneNumber\": \"abcd\",\n    \"gender\": \"M\"\n}",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Arnaud\",\n    \"birthDate\": \"1924-01-01\",\n    \"countryCode\": \"FR\",\n    \"phoneNumber\": \"+337777777\",\n    \"gender\": \"N\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -444,15 +473,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/user",
-					"protocol": "http",
+					"raw": "{{baseURL}}/user",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseURL}}"
 					],
-					"port": "8888",
 					"path": [
 						"user"
 					]
@@ -491,15 +515,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/user",
-					"protocol": "http",
+					"raw": "{{baseURL}}/user",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseURL}}"
 					],
-					"port": "8888",
 					"path": [
 						"user"
 					]
@@ -596,21 +615,73 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/user",
-					"protocol": "http",
+					"raw": "{{baseURL}}/user",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{baseURL}}"
 					],
-					"port": "8888",
 					"path": [
 						"user"
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "UpadateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"    const json = pm.response.json();",
+							"    pm.expect(json.id).to.eql(3);",
+							"    pm.expect(json.name).to.eql(\"Stephane\");",
+							"    pm.expect(json.birthDate).to.eql(\"1985-01-01\");",
+							"    pm.expect(json.countryCode).to.eql(\"FR\");",
+							"    pm.expect(json.phoneNumber).to.eql(\"+3311111111\");",
+							"    pm.expect(json.gender).to.eql(\"M\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 3,\n    \"name\": \"Stephane\",\n    \"birthDate\": \"1985-01-01\",\n    \"countryCode\": \"FR\",\n    \"phoneNumber\": \"+337777777\",\n    \"gender\": \"M\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/user/3",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"user",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
 		}
 	]
 }
