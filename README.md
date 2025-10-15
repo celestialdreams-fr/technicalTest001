@@ -1,7 +1,8 @@
 
 # Technical Test
 
-This README describes the REST controller UserController, its endpoints, expected formats, HTTP behavior, how to test it and run it.
+This README describes the REST controller UserController, its endpoints, expected formats, HTTP behavior, how to test it and run it.\
+***!!! i created a new branch (test002) to add CustomProperties in order to define a default allowed countries and to set the min age for adult status!!!***
 ## API Reference
 
 #### Get all users
