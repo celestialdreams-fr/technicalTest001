@@ -4,7 +4,7 @@ CREATE TABLE users (
   id INT AUTO_INCREMENT  PRIMARY KEY,
   name VARCHAR(40) NOT NULL,
   birth_date DATE NOT NULL,
-  country_code VARCHAR(2) NULL,
+  country_code VARCHAR(2) NOT NULL,
   gender VARCHAR(1) NULL,
   phone_number VARCHAR(16) NULL
 );
