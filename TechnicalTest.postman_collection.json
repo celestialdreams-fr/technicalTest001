@@ -8,96 +8,6 @@
 	},
 	"item": [
 		{
-			"name": "User1",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"User1\", function () {",
-							"    pm.response.to.have.status(200);",
-							"    const json = pm.response.json();",
-							"    pm.expect(json.id).to.eql(1);",
-							"    pm.expect(json.name).to.eql(\"Arnaud\");",
-							"    pm.expect(json.birthDate).to.eql(\"1975-01-01\");",
-							"    pm.expect(json.countryCode).to.eql(\"FR\");",
-							"    pm.expect(json.phoneNumber).to.eql(\"+337777777\");",
-							"    pm.expect(json.gender).to.eql(\"M\");",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {},
-						"requests": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseURL}}/user/1",
-					"host": [
-						"{{baseURL}}"
-					],
-					"path": [
-						"user",
-						"1"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "User1",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://127.0.0.1:8888/user/1",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8888",
-							"path": [
-								"user",
-								"1"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": null,
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Tue, 14 Oct 2025 14:08:18 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"id\": 1,\n    \"name\": \"Arnaud\",\n    \"birthDate\": \"1975-01-01\",\n    \"countryCode\": \"FR\",\n    \"phoneNumber\": \"+337777777\",\n    \"gender\": \"M\"\n}"
-				}
-			]
-		},
-		{
 			"name": "UserNotFound",
 			"event": [
 				{
@@ -198,13 +108,7 @@
 							"    pm.expect(json[1].countryCode).to.eql(\"DE\");",
 							"    pm.expect(json[1].phoneNumber).to.eql(\"+336666666\");",
 							"    pm.expect(json[1].gender).to.eql(\"F\");",
-							"    pm.expect(json[2].id).to.eql(3);",
-							"    pm.expect(json[2].name).to.eql(\"Victoria\");",
-							"    pm.expect(json[2].birthDate).to.eql(\"2010-02-11\");",
-							"    pm.expect(json[2].countryCode).to.eql(\"US\");",
-							"    pm.expect(json[2].phoneNumber).to.eql(\"+3311111111\");",
-							"    pm.expect(json[2].gender).to.eql(\"F\");",
-							"    ",
+							"    // id3 for update test",
 							"});"
 						],
 						"type": "text/javascript",
@@ -366,8 +270,9 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-							"});",
+							"    pm.expect(pm.response.code).to.be.oneOf([422]);",
+							"    pm.expect(pm.response.json().countryCode).to.contains(\"invalid country code\");",
+							"})",
 							""
 						],
 						"type": "text/javascript",
@@ -408,7 +313,8 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"    pm.expect(pm.response.code).to.be.oneOf([422]);",
+							"    pm.expect(pm.response.json().gender).to.contains(\"F or M only\");",
 							"});",
 							""
 						],
@@ -450,7 +356,8 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"    pm.expect(pm.response.code).to.be.oneOf([422]);",
+							"    pm.expect(pm.response.json().phoneNumber).to.include(\"invalid phone number format\");",
 							"});",
 							""
 						],
@@ -465,7 +372,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 1,\n    \"name\": \"Arnaud\",\n    \"birthDate\": \"1924-01-01\",\n    \"countryCode\": \"FR\",\n    \"phoneNumber\": \"+337777777\",\n    \"gender\": \"N\"\n}",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Arnaud\",\n    \"birthDate\": \"1924-01-01\",\n    \"countryCode\": \"FR\",\n    \"phoneNumber\": \"abcd\",\n    \"gender\": \"M\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -492,7 +399,8 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"    pm.expect(pm.response.code).to.be.oneOf([422]);",
+							"    pm.expect(pm.response.json().name).to.include(\"has to contain between\");",
 							"});",
 							""
 						],
@@ -507,7 +415,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 1,\n    \"name\": \"Arnaud\",\n    \"birthDate\": \"1924-01-01\",\n    \"countryCode\": \"FR\",\n    \"phoneNumber\": \"+337777777\",\n    \"gender\": \"N\"\n}",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"Arn@ud\",\n    \"birthDate\": \"1924-01-01\",\n    \"countryCode\": \"FR\",\n    \"phoneNumber\": \"+337777777\",\n    \"gender\": \"M\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -515,10 +423,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}/user",
+					"raw": "http://127.0.0.1:8888/user",
+					"protocol": "http",
 					"host": [
-						"{{baseURL}}"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
+					"port": "8888",
 					"path": [
 						"user"
 					]
@@ -593,6 +506,13 @@
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {",
 							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"    const json = pm.response.json();",
+							"    pm.expect(json.id).to.greaterThan(3);",
+							"    pm.expect(json.name).to.eql(\"Stephane\");",
+							"    pm.expect(json.birthDate).to.eql(\"1985-01-01\");",
+							"    pm.expect(json.countryCode).to.eql(\"FR\");",
+							"    pm.expect(json.phoneNumber).to.eql(\"+337777777\");",
+							"    pm.expect(json.gender).to.eql(\"M\");",
 							"});",
 							""
 						],
@@ -671,6 +591,49 @@
 					"path": [
 						"user",
 						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User1\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    const json = pm.response.json();",
+							"    pm.expect(json.id).to.eql(1);",
+							"    pm.expect(json.name).to.eql(\"Arnaud\");",
+							"    pm.expect(json.birthDate).to.eql(\"1975-01-01\");",
+							"    pm.expect(json.countryCode).to.eql(\"FR\");",
+							"    pm.expect(json.phoneNumber).to.eql(\"+337777777\");",
+							"    pm.expect(json.gender).to.eql(\"M\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/user/1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"user",
+						"1"
 					]
 				}
 			},
