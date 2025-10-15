@@ -16,7 +16,7 @@ This README describes the REST controller UserController, its endpoints, expecte
 | - | - | Returns all users as an iterable collection|
 
 Responses:\
-    200 OK — returns array or iterable of User objects.
+    200 OK — returns array of User objects.
 
 Response example:\
   {
