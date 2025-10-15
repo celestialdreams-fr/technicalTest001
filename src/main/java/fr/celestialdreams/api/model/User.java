@@ -20,7 +20,8 @@
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
-	
+		
+		@NotNull
 	    @Pattern(regexp = "^[a-zA-Z]{2,40}$", message = "has to contain between 2 and 40 alphabetic characters")
 	    @Column(name = "name", nullable = false, length = 40)
 	    private String name;
