@@ -15,7 +15,7 @@ This README describes the REST controller UserController, its endpoints, expecte
 | - | - | Returns all users as an iterable collection|
 
 Responses:\
-    200 OK — returns array or iterable of User objects.\
+    200 OK — returns array or iterable of User objects.
 
 Response example:\
   {
@@ -156,4 +156,4 @@ Inputs must be validated and return proper error messages/http statuses => @vali
 Deliverables:\
 • Source code (Github) => https://github.com/celestialdreams-fr/technicalTest001
 • Documentation (how to build from sources, how to use the API) => this readme.md\
-• Request samples (I.e. Postman collectio) => TechnicalTest.postman_collection.json
+• Request samples (I.e. Postman collection) => TechnicalTest.postman_collection.json
