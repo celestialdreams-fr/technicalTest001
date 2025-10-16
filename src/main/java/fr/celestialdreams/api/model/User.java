@@ -21,7 +21,7 @@
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 		
-		@NotNull
+		@NotNull // todo remove this useless check
 	    @Pattern(regexp = "^[a-zA-Z]{2,40}$", message = "has to contain between 2 and 40 alphabetic characters")
 	    @Column(name = "name", nullable = false, length = 40)
 	    private String name;
